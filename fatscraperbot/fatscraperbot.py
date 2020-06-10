@@ -6,7 +6,7 @@ import time
 
 recs = []
 new_recs = 0
-poll = 10
+poll = 300
 
 def get_last_n_recs(n, recs):
     if n > 0:
@@ -26,7 +26,9 @@ def get_num_new_recs():
     new_releases = 0
     if os.path.exists(tok.NEWRELEASES):
         with open(tok.NEWRELEASES, 'r') as c:
-            new_releases = int(c.read()) if (c.read().isdigit()) else 2
+            num = c.readline().rstrip()
+            new_releases = int(num) if num.isdigit() else 0
+            print(new_releases)
     return new_releases
 
 def handle_new_releases(recs, new_recs):
