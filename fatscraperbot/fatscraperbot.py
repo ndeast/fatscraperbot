@@ -18,17 +18,17 @@ def parse_recs():
         print("file not found")
     return recs
 
-def get_new_rec_ids():
-    new_releases = []
+def get_num_new_recs():
+    new_releases = 0
     if os.path.exists(tok.NEWRELEASES):
         with open(tok.NEWRELEASES, 'r') as c:
-            new_releases = [int(l.rstrip("\n")) for l in c]
+            new_releases = int(c.read())
     return new_releases
 
 def handle_new_releases(recs):
-    new_rec_ids = get_new_rec_ids()
-    for rec_id in new_rec_ids:
-        print(format_release(recs[rec_id]))
+    new_recs = get_last_n_recs(get_num_new_recs(), recs)
+    for rec in new_recs:
+        print(format_release(rec))
 
 def format_release(rec):
     return (
