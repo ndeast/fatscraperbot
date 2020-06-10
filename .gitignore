@@ -5,3 +5,4 @@ fatscraperbot.egg-info
 .vscode
 UpcomingRecords.json
 count
+__pycache__
