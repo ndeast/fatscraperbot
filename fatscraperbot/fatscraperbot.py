@@ -1,8 +1,12 @@
 import tokens as tok
 import json
 import os
+import time
+# from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 recs = []
+new_recs = 0
+poll = 10
 
 def get_last_n_recs(n, recs):
     if n > 0:
@@ -22,10 +26,10 @@ def get_num_new_recs():
     new_releases = 0
     if os.path.exists(tok.NEWRELEASES):
         with open(tok.NEWRELEASES, 'r') as c:
-            new_releases = int(c.read())
+            new_releases = int(c.read()) if (c.read().isdigit()) else 2
     return new_releases
 
-def handle_new_releases(recs):
+def handle_new_releases(recs, new_recs):
     new_recs = get_last_n_recs(get_num_new_recs(), recs)
     for rec in new_recs:
         print(format_release(rec))
@@ -39,4 +43,14 @@ def format_release(rec):
     )
 
 recs = parse_recs()
-handle_new_releases(recs)
+tr = 0
+while 1:
+    if tr == poll:
+        tr = 0
+
+        if (new_recs := get_num_new_recs()):
+            handle_new_releases(recs, new_recs)
+            os.remove(tok.NEWRELEASES)
+    
+    time.sleep(10)
+    tr += 10
