@@ -18,6 +18,7 @@ class FSData:
 
     def __print_last_five(self):
         last_five = self.__get_last_n_recs(5, self.recs)
+        str = ""
         for rec in last_five:
             str += self.format_release(rec)
         return str
