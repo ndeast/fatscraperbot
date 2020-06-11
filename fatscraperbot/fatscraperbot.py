@@ -4,6 +4,7 @@ import json
 import os
 import time
 import logging
+from uuid import uuid4
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
