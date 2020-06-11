@@ -13,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 new_recs = 0
-poll = 10
+poll = 300
 
 fs = FSData(tok.JSONFILE, tok.NEWRELEASES)
 
